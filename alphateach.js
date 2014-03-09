@@ -1,28 +1,46 @@
 //load meSpeak library
 meSpeak.loadConfig("mespeak/mespeak_config.json");
-meSpeak.loadVoice("mespeak/en-us.json");
+meSpeak.loadVoice("mespeak/voices/en/en-us.json");
 
 // array of alphabet characters to show on the screen
 var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 //array of messages to display after successful keypress
-var success_messages = ['Awesome!', 'Great job!', 'Terrific!', 'Hurray!']
+var success_messages = [
+    "You're Awesome!", 
+    'Great job!', 
+    'Terrific!', 
+    'You did it!', 
+    'Amazing!',
+    'Success!',
+    'Triumphant!'
+]
+
+var failure_messages = [
+    "Try again!",
+    "Practice makes perfect!",
+    "It's okay! Try again.",
+    "One more time!"
+]
 
 //compare the keycode of the pressed key with the current letter on the screen
 function compare_key(key, letter){
     if (key==letter){
-	console.log("success!");
-	$('#main_letter').css('color', 'green');
+	var success_message = pick_random_success_message()
 	$('#main_letter')
-	    .text(pick_random_success_message())
+	    .text(success_message)
 	    .effect( "bounce", { times: 3 }, "slow" )
+	    .css('color', 'green')
 	    .css('font-size', '100px');
+	meSpeak.speak(success_message);
 	setTimeout(reset_main_letter, 1000);
     } else {
-	$("#main_letter").css('color', 'red');
-	$( "#main_letter" ).effect("shake");
-    }
-	    
+	var failure_message = pick_random_failure_message()
+	$("#main_letter")
+	    .css('color', 'red')
+	    .effect("shake");
+	meSpeak.speak(failure_message);
+    }	    
 }
 
 // pick a random letter and set it on the screen
@@ -43,6 +61,12 @@ function pick_random_letter(){
 // picks and returns a random success message
 function pick_random_success_message(){
     var message = success_messages[Math.floor(Math.random()*success_messages.length)];
+    return message
+}
+
+// picks and returns a random success message
+function pick_random_failure_message(){
+    var message = failure_messages[Math.floor(Math.random()*failure_messages.length)];
     return message
 }
 
