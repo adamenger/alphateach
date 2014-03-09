@@ -1,3 +1,8 @@
+//load meSpeak library
+meSpeak.loadConfig("mespeak/mespeak_config.json");
+meSpeak.loadVoice("mespeak/en-us.json");
+
+// array of alphabet characters to show on the screen
 var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 //array of messages to display after successful keypress
@@ -8,7 +13,10 @@ function compare_key(key, letter){
     if (key==letter){
 	console.log("success!");
 	$('#main_letter').css('color', 'green');
-	$('#main_letter').text(pick_random_success_message()).effect( "bounce", { times: 3 }, "slow" );
+	$('#main_letter')
+	    .text(pick_random_success_message())
+	    .effect( "bounce", { times: 3 }, "slow" )
+	    .css('font-size', '100px');
 	setTimeout(reset_main_letter, 1000);
     } else {
 	$("#main_letter").css('color', 'red');
@@ -20,6 +28,7 @@ function compare_key(key, letter){
 // pick a random letter and set it on the screen
 function reset_main_letter(){
     var letter = pick_random_letter();
+    $('#main_letter').css('font-size', '400px');
     $('#main_letter').css('color', 'black');
     $('#main_letter').text(letter);
     return letter
