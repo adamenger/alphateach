@@ -64,7 +64,7 @@ function pick_random_success_message(){
     return message
 }
 
-// picks and returns a random success message
+// picks and returns a random failure message
 function pick_random_failure_message(){
     var message = failure_messages[Math.floor(Math.random()*failure_messages.length)];
     return message
